@@ -1,5 +1,4 @@
-import {popupProfile} from "./modal";
-import {editButton} from "./modal";
+import {popupProfile, editButton} from "./modal";
 
 const profileElement = popupProfile.querySelector('.popup__form');
 const nameInput = profileElement.elements.name;

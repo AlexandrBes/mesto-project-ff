@@ -1,14 +1,22 @@
 import '../pages/index.css';
-import './modal.js';
 import './profille.js';
-import {openPopup, fullImage, addCardButton} from './modal.js';
 import {initialCards} from './cards.js';
+import {openPopup, closePopup, popupAddCard} from './modal';
 
 // @todo: Темплейт карточки
 const cardTemplate = document.querySelector('#card-template').content;
 
 // @todo: DOM узлы
 const placesList = document.querySelector('.places__list');
+
+const cardElement = popupAddCard.querySelector('.popup__form');
+const typeUrl = document.querySelector('.popup__input_type_url');
+const typeCardName = document.querySelector('.popup__input_type_card-name');
+
+const popupImage = document.querySelector('.popup_type_image');
+const imageCaption = popupImage.querySelector('.popup__caption');
+const image = popupImage.querySelector('.popup__image');
+const closeImage = popupImage.querySelector('.popup__close');
 
 // @todo: Функция создания карточки
 function createCard(item, deleteButton) {
@@ -27,7 +35,6 @@ function createCard(item, deleteButton) {
         fullImage(item.link, item.name)
     });
 
-    //лайк карточки
     cardLike.addEventListener('click', (event) => {
         if (event.target.classList.contains('card__like-button')) {
             (cardLike.classList.toggle('card__like-button_is-active'))
@@ -47,16 +54,6 @@ initialCards.forEach(function (item) {
     placesList.append(createCard (item, deleteCard));
 });
 
-
-
-
-import {popupAddCard} from './modal';
-
-const cardElement = popupAddCard.querySelector('.popup__form');
-const typeUrl = document.querySelector('.popup__input_type_url');
-const typeCardName = document.querySelector('.popup__input_type_card-name');
-
-
 //функция создания карточки
 function handleNewCardFormSubmit(event) {
     event.preventDefault();
@@ -70,3 +67,14 @@ function handleNewCardFormSubmit(event) {
 
 //обработчик создания карт 
 cardElement.addEventListener('submit', handleNewCardFormSubmit);
+
+//функция открытия картинки во весь экран
+function fullImage(link, name) {
+    imageCaption.textContent = name
+    image.src = link
+    image.alt = name
+    openPopup(popupImage)
+    closeImage.addEventListener('click', () => {
+        closePopup(popupImage)
+    });
+};
