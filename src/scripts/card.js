@@ -1,4 +1,5 @@
 import {cardTemplate, typeUrl, typeCardName, openImage, placesList, popupForm, popupAddCard} from './index'
+import { closePopup } from './modal';
 
 // @todo: Функция создания карточки
 export function createCard(item) {
@@ -34,6 +35,7 @@ export function handleNewCardFormSubmit(event) {
     const newCard = createCard({name: nameInput, link: linkInput});
     placesList.prepend(newCard);
     popupForm.reset();
+    closePopup(popupAddCard)
 }
 
 // @todo: Функция удаления карточки
