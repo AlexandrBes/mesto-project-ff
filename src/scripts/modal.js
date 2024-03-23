@@ -1,10 +1,3 @@
-export const popupAddCard = document.querySelector('.popup_type_new-card');
-export const popupProfile = document.querySelector('.popup_type_edit');
-export const editButton = document.querySelector('.profile__edit-button');
-export const addCardButton = document.querySelector('.profile__add-button');
-export const closeCard = popupAddCard.querySelector('.popup__close');
-export const closeProfile = popupProfile.querySelector('.popup__close')
-
 export function openPopup(event) {
     event.classList.add('popup_is-opened', 'popup_is-animated');
     document.addEventListener('click', closeOverlay);
@@ -13,6 +6,8 @@ export function openPopup(event) {
 
 export function closePopup(event) {
     event.classList.remove('popup_is-opened');
+    document.removeEventListener('click', closeOverlay);
+    document.removeEventListener('keydown', closeEsc);
 };
   
 function closeEsc(event) {
@@ -26,17 +21,3 @@ function closeOverlay(event) {
       closePopup(event.target);
     };
 };
-
-addCardButton.addEventListener('click', () => {
-    openPopup(popupAddCard)
-    closeCard.addEventListener('click', () => {
-        closePopup(popupAddCard)
-    });
-});
-
-editButton.addEventListener('click', () => {
-    openPopup(popupProfile)
-    closeProfile.addEventListener('click', () => {
-        closePopup(popupProfile)
-    });
-});
