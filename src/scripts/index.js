@@ -1,23 +1,16 @@
 import '../pages/index.css';
 import {initialCards} from './cards.js';
 import {openPopup, closePopup} from './modal';
-import {createCard, deleteCard, handleNewCardFormSubmit} from './card';
-
-// @todo: Темплейт карточки
-export const cardTemplate = document.querySelector('#card-template').content;
+import {createCard, deleteCard, likeButton, openImage} from './card';
 
 // @todo: DOM узлы
-export const placesList = document.querySelector('.places__list');
-export const popupAddCard = document.querySelector('.popup_type_new-card');
+const placesList = document.querySelector('.places__list');
+const popupAddCard = document.querySelector('.popup_type_new-card');
 const popupProfile = document.querySelector('.popup_type_edit');
-const popupImage = document.querySelector('.popup_type_image');
 
-export const popupForm = popupAddCard.querySelector('.popup__form');
-export const typeUrl = document.querySelector('.popup__input_type_url');
-export const typeCardName = document.querySelector('.popup__input_type_card-name');
-
-const imageCaption = popupImage.querySelector('.popup__caption');
-const image = popupImage.querySelector('.popup__image');
+const popupForm = popupAddCard.querySelector('.popup__form');
+const typeUrl = document.querySelector('.popup__input_type_url');
+const typeCardName = document.querySelector('.popup__input_type_card-name');
 
 const profileElement = popupProfile.querySelector('.popup__form');
 const userInput = profileElement.elements.name;
@@ -31,19 +24,22 @@ const addCardButton = document.querySelector('.profile__add-button');
 
 // @todo: Вывести карточки на страницу
 initialCards.forEach(function (item) {
-    placesList.append(createCard (item, deleteCard));
+    placesList.append(createCard (item, deleteCard, openImage, likeButton));
 });
+
+//Функция создания карточки
+function handleNewCardFormSubmit(event) {
+    event.preventDefault();
+    const nameInput = typeCardName.value;
+    const linkInput = typeUrl.value;
+    const newCard = createCard({name: nameInput, link: linkInput});
+    placesList.prepend(newCard);
+    popupForm.reset();
+    closePopup(popupAddCard)
+}
 
 //Обработчик создания карт 
 popupForm.addEventListener('submit', handleNewCardFormSubmit);
-
-//Функция открытия картинки во весь экран
-export function openImage(link, name) {
-    imageCaption.textContent = name
-    image.src = link
-    image.alt = name
-    openPopup(popupImage)
-};
 
 //функция закрытия на крестик
 closeButtons.forEach((button) => {
