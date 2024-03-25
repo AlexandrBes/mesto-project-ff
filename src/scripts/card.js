@@ -1,5 +1,3 @@
-import {openPopup} from "./modal";
-
 // @todo: Темплейт карточки
 const cardTemplate = document.querySelector('#card-template').content;
 
@@ -30,15 +28,6 @@ export function createCard(item, deleteCard, openImage, likeButton) {
 // @todo: Функция удаления карточки
 export function deleteCard(event) {
     event.target.closest('.places__item').remove();
-};
-
-//Функция открытия картинки во весь экран
-export function openImage(link, name) {
-    const popupImage = document.querySelector('.popup_type_image');
-    popupImage.querySelector('.popup__caption').textContent = name
-    popupImage.querySelector('.popup__image').src = link
-    popupImage.querySelector('.popup__image').alt = name    
-    openPopup(popupImage)
 };
 
 //Функция лайка карточки
