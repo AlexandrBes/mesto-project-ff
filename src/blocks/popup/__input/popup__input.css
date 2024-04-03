@@ -6,7 +6,7 @@
   font-size: 14px;
   line-height: 18px;
   box-sizing: border-box;
-  padding: 10px 0 0;
+  padding: 25px 0 0;
   margin-bottom: 10px;
 }
 
@@ -19,4 +19,19 @@
     font-size: 12px;
     line-height: 15px;
   }
+}
+
+.popup__input-error {
+  font-size: 12px;
+  position: absolute;
+  color: #ff0000;
+}
+
+.popup__input_type_error:invalid {
+  border-bottom-color: #ff0000;
+}
+
+.popup__form .popup__input-error:last-of-type{
+  left: 36px;
+  top: 201px;
 }

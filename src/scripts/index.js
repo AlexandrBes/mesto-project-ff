@@ -2,13 +2,14 @@ import '../pages/index.css';
 import {initialCards} from './cards.js';
 import {openPopup, closePopup} from './modal';
 import {createCard, deleteCard, likeButton} from './card';
+import {enableValidation, clearValidation} from './validation.js';
 
 // @todo: DOM узлы
 const placesList = document.querySelector('.places__list');
 const popupAddCard = document.querySelector('.popup_type_new-card');
 const popupProfile = document.querySelector('.popup_type_edit');
 
-const popupForm = popupAddCard.querySelector('.popup__form');
+export const popupForm = popupAddCard.querySelector('.popup__form');
 const typeUrl = document.querySelector('.popup__input_type_url');
 const typeCardName = document.querySelector('.popup__input_type_card-name');
 
@@ -25,6 +26,17 @@ const popupCaption = popupImage.querySelector('.popup__caption');
 const closeButtons = document.querySelectorAll('.popup__close');
 const editButton = document.querySelector('.profile__edit-button');
 const addCardButton = document.querySelector('.profile__add-button');
+
+const customValidation = {
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__button',
+    inactiveButtonClass: 'popup__button_disabled',
+    inputErrorClass: 'popup__input_type_error',
+    errorClass: 'popup__error_visible'
+}; 
+
+enableValidation(customValidation)
 
 // @todo: Вывести карточки на страницу
 initialCards.forEach(function (item) {
@@ -63,13 +75,15 @@ closeButtons.forEach((button) => {
 //обработчик кнопки добавления карт
 addCardButton.addEventListener('click', () => {
     openPopup(popupAddCard)
+    clearValidation(popupAddCard, customValidation)
 });
 
 //обработчик кнопки редактирования профиля
 editButton.addEventListener('click', () => {
-    openPopup(popupProfile)
     userInput.value = profileTitle.textContent; 
     jobInput.value = profileDescription.textContent; 
+    clearValidation(popupProfile, customValidation)
+    openPopup(popupProfile)
 });
 
 //функция редактирования профиля
