@@ -13,3 +13,9 @@
   position: relative;
   overflow: hidden;
 }
+
+.conteiner__likes {
+  width: 22px;
+  height: 35px;
+  text-align: center;
+}

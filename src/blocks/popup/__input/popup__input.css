@@ -31,7 +31,12 @@
   border-bottom-color: #ff0000;
 }
 
-.popup__form .popup__input-error:last-of-type{
+.popup__form .popup__input-error:nth-of-type(2){
   left: 36px;
-  top: 201px;
+  top:201px;
+}
+
+.popup__form .popup__input-error:nth-of-type(1){
+  left: 36px;
+  top:145px;
 }

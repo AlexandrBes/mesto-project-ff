@@ -14,6 +14,7 @@
   </header>
   <main class="content">
     <section class="profile page__section">
+      <button class="edit__button-image"></button>
       <div class="profile__image" style="background-image: url('<%=require(`./images/avatar.jpg`)%>');"></div>
       <div class="profile__info">
         <h1 class="profile__title">Жак-Ив Кусто</h1>
@@ -102,6 +103,23 @@
       <p class="popup__caption"></p>
     </div>
   </div>
+  <div class="popup popup__edit-image">
+    <div class="popup__content popup__avatar">
+      <button type="button" class="popup__close" ></button>
+      <h3 class="popup__title">Обновить аватар</h3>
+      <form class="popup__form" name="img-avatar">
+        <input 
+          type="url"
+          name="update-avatar"
+          class="popup__input"
+          id="avatar__input"
+          placeholder="Ссылка на картинку"
+          required>
+          <span class="popup__input-error avatar__input-error"></span>
+          <button type="submit" class="button popup__button">Сохранить</button>
+      </form>
+    </div>
+  </div>
 </div>
 
 <template id="card-template">
@@ -111,7 +129,10 @@
     <div class="card__description">
       <h2 class="card__title">
       </h2>
-      <button type="button" class="card__like-button"></button>
+      <div class="conteiner__likes">
+        <button type="button" class="card__like-button"></button>
+        <span class="number__likes"></span>
+      </div>
     </div>
   </li>
 </template>
