@@ -1,4 +1,4 @@
 # Проектная работа Mesto
-# Bespalov Aleksandr
-# https://github.com/AlexandrBes/mesto-project-ff.git
-# https://alexandrbes.github.io/mesto-project-ff/
+#1 Bespalov Aleksandr
+#1 https://github.com/AlexandrBes/mesto-project-ff.git
+#1 https://alexandrbes.github.io/mesto-project-ff/
