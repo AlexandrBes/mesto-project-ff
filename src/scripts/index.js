@@ -1,5 +1,4 @@
 import '../pages/index.css';
-import {initialCards} from './cards.js';
 import {openPopup, closePopup} from './modal';
 import {createCard, deleteCard, likeButton} from './card';
 import {enableValidation, clearValidation} from './validation.js';
@@ -10,13 +9,13 @@ const placesList = document.querySelector('.places__list');
 const popupAddCard = document.querySelector('.popup_type_new-card');
 const popupProfile = document.querySelector('.popup_type_edit');
 
-export const popupForm = popupAddCard.querySelector('.popup__form');
+const formAddCard = popupAddCard.querySelector('.popup__form');
 const typeUrl = document.querySelector('.popup__input_type_url');
 const typeCardName = document.querySelector('.popup__input_type_card-name');
 
-const profileElement = popupProfile.querySelector('.popup__form');
-const userInput = profileElement.elements.name;
-const jobInput = profileElement.elements.description;
+const formEditProfile = popupProfile.querySelector('.popup__form');
+const userInput = formEditProfile.elements.name;
+const jobInput = formEditProfile.elements.description;
 const profileTitle = document.querySelector('.profile__title');
 const profileDescription = document.querySelector('.profile__description');
 
@@ -54,10 +53,13 @@ Promise.all(promise)
         item.forEach ((item) => {
             placesList.append(createCard(item, deleteCard, openImage,  likeButton, userId));
         });
-        profileTitle.textContent = user.name;
-        profileDescription.textContent = user.about;
-        profileImage.style.backgroundImage = `url(${user.avatar})`;
-});
+    profileTitle.textContent = user.name;
+    profileDescription.textContent = user.about;
+    profileImage.style.backgroundImage = `url(${user.avatar})`;
+})
+    .catch((err) => {
+        console.log(err);
+}); 
 
 enableValidation(customValidation);
 
@@ -66,18 +68,21 @@ function handleNewCardFormSubmit(event) {
     event.preventDefault();
     const nameInput = typeCardName.value;
     const linkInput = typeUrl.value;
-    popupForm.querySelector('.popup__button').textContent = 'Сохранение...';
+    formAddCard.querySelector('.popup__button').textContent = 'Сохранение...';
     addCard ({
         name: nameInput,
         link: linkInput
     })
     .then((res) => {
-        placesList.prepend(createCard(res, deleteCard, openImage, likeButton, userId))
+        placesList.prepend(createCard(res, deleteCard, openImage, likeButton, userId));
         closePopup(popupAddCard);
-        popupForm.reset();
+        formAddCard.reset();
     })
+    .catch((err) => {
+        console.log(err);
+    }) 
     .finally(()=> {
-        popupForm.querySelector('.popup__button').textContent = 'Сохранить';        
+        formAddCard.querySelector('.popup__button').textContent = 'Сохранить';        
     });
 };
 
@@ -88,12 +93,12 @@ addCardButton.addEventListener('click', () => {
 });
 
 //Обработчик создания карт 
-popupForm.addEventListener('submit', handleNewCardFormSubmit);
+formAddCard.addEventListener('submit', handleNewCardFormSubmit);
 
 //функция редактирования профиля
-function handleFormSubmit(event) {
+function submitEditProfileForm(event) {
     event.preventDefault();
-    profileElement.querySelector('.popup__button').textContent = 'Сохранение...';
+    formEditProfile.querySelector('.popup__button').textContent = 'Сохранение...';
     editProfile({
         name: userInput.value,
         about: jobInput.value
@@ -102,10 +107,13 @@ function handleFormSubmit(event) {
         profileTitle.textContent = res.name;
         profileDescription.textContent = res.about;
         closePopup(popupProfile);
-        profileElement.reset();
+        formEditProfile.reset();
     })
+    .catch((err) => {
+        console.log(err);
+    }) 
     .finally(()=> {
-        profileElement.querySelector('.popup__button').textContent = 'Сохранить';        
+        formEditProfile.querySelector('.popup__button').textContent = 'Сохранить';        
     });
 };
 
@@ -118,9 +126,7 @@ editButton.addEventListener('click', () => {
 });
 
 //обработчик редактирования профиля
-profileElement.addEventListener('submit', (event) => {
-    handleFormSubmit(event);
-});
+formEditProfile.addEventListener('submit', submitEditProfileForm);
 
 //Функция открытия картинки во весь экран
 function openImage(link, name) {
@@ -148,6 +154,9 @@ function avatarInput(event) {
         closePopup(popupEditImg);
         popupProfileImg.reset();
     })
+    .catch((err) => {
+        console.log(err);
+    }) 
     .finally(()=> {
         popupProfileImg.querySelector('.popup__button').textContent = 'Сохранить';        
     })

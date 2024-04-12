@@ -35,8 +35,8 @@ export function createCard(item, deleteCard, openImage, likeButton, userId) {
     item.likes.forEach((item) => {
       if (item._id === userId) {
         cardLike.classList.add('card__like-button_is-active');
-      }
-    })
+      };
+    });
 
     return placesItem;
 };
@@ -45,7 +45,10 @@ export function createCard(item, deleteCard, openImage, likeButton, userId) {
 export function deleteCard(item, event) {
   removeCard(item)
     .then(() => {
-      event.remove()
+      event.remove();
+    })
+    .catch((err) => {
+      console.log(err);
     });
 };
 
@@ -54,14 +57,20 @@ export function likeButton(event, likes, cardLike) {
   if (!(cardLike.classList.contains('card__like-button_is-active'))) {
     addLike(event)
     .then((item) => {
-      cardLike.classList.add('card__like-button_is-active')
-      likes.textContent = Object.keys(item.likes).length
+      cardLike.classList.add('card__like-button_is-active');
+      likes.textContent = Object.keys(item.likes).length;
     })
+    .catch((err) => {
+      console.log(err);
+    });
   } else {
     removeLike(event)
     .then((item) => {
-      cardLike.classList.remove('card__like-button_is-active')
-      likes.textContent = Object.keys(item.likes).length
+      cardLike.classList.remove('card__like-button_is-active');
+      likes.textContent = Object.keys(item.likes).length;
     })
-  }
+    .catch((err) => {
+      console.log(err);
+    });
+  };
 };
